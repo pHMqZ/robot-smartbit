@@ -6,6 +6,6 @@ def get_fake_account():
     account = {
         "name": faker.name(),
         "email": faker.email(),
-        "document": faker.cpf()
+        "cpf": faker.cpf()
     }
     return account

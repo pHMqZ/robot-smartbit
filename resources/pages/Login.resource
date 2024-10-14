@@ -16,3 +16,8 @@ Submit login form
 
     Click        xpath=//button[@type='submit'][contains(.,'Entrar')]
 
+Toast Should be
+    [Arguments]        ${expected_text}
+
+    Wait For Elements State    xpath=//div[@class='Toastify__toast-body'][contains(.,'${expected_text}')]
+    ...    visible    5

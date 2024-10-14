@@ -1,0 +1,35 @@
+# Diretório padrão de relatórios do Robot Framework
+output/
+report/
+log/
+logs/
+
+# Arquivos de saída e relatórios comuns
+*.xml
+*.html
+*.png
+*.jpg
+*.json
+*.log
+
+# Arquivos temporários e de cache do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Configurações de ambiente virtual (se você usa um)
+env/
+venv/
+
+# Dependências instaladas (caso esteja usando pipenv ou poetry)
+Pipfile.lock
+poetry.lock
+
+# Arquivos de sistema e de configuração local
+.DS_Store
+*.swp
+.idea/
+.vscode/
+*.iml
+*.class

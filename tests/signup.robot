@@ -20,74 +20,32 @@ Deve iniciar o cadastro do cliente com sucesso
     Verify welcome message
 
 
+Tentativa de pré-cadastro
+    [Template]        Attempted signup
+    ${EMPTY}           phillipteste@teste.com    69652880434    Por favor informe o seu nome completo
+    Phillip Marques    ${EMPTY}                  69652880434    Por favor, informe o seu melhor e-mail
+    Phillip Marques    phillipteste@teste.com    ${EMPTY}       Por favor, informe o seu CPF
+    Phillip Marques    philliptestes             69652880434    Oops! O email informado é inválido
+    Phillip Marques    phillip!testes.com        69652880434    Oops! O email informado é inválido
+    Phillip Marques    www.philliptestes.com     69652880434    Oops! O email informado é inválido
+    Phillip Marques    123143                    69652880434    Oops! O email informado é inválido
+    Phillip Marques    iojsd@#$@ksdjfl           69652880434    Oops! O email informado é inválido
+    Phillip Marques    phillipteste@teste.com    69652880tgas   Oops! O CPF informado é inválido
+    Phillip Marques    phillipteste@teste.com    dssdfsdfsdfd   Oops! O CPF informado é inválido
+    Phillip Marques    phillipteste@teste.com    696328!@tgas   Oops! O CPF informado é inválido
+    Phillip Marques    phillipteste@teste.com    69652880421    Oops! O CPF informado é inválido
+    Phillip Marques    phillipteste@teste.com    12             Oops! O CPF informado é inválido
 
-Validação de campos obrigatórios - Nome
-    [Tags]    required    #tag de campo obrigatório pode auxiliar para rodar
-    #teste contendo essa
-
-    ${account}    Create Dictionary
-    ...    name=${EMPTY}    
-    ...    email=phillipteste@teste.com
-    ...    cpf=69652880434
-
-
-    Submit signup form    ${account}
-    
-    Notice Should be     Por favor informe o seu nome completo
-
-
-
-
-Validação de campos obrigatórios - Email
-    [Tags]    required
-
-    ${account}    Create Dictionary
-    ...    name=Phillip Marques   
-    ...    email=${EMPTY} 
-    ...    cpf=69652880434
-
-    Submit signup form    ${account}
-    
-
-    Notice should be    Por favor, informe o seu melhor e-mail
-
-
-
-Validação de campos obrigatórios - CPF
-    [Tags]    required
+*** Keywords ***
+Attempted signup
+    [Arguments]     ${name}    ${email}    ${cpf}    ${output_message}
 
     ${account}    Create Dictionary
-    ...    name=Phillip Marques   
-    ...    email=phillipteste@teste.com
-    ...    cpf=${EMPTY}
-
-    Submit signup form    ${account}
-
-    
-    Notice should be    Por favor, informe o seu CPF
-   
-
-Preenchimento de email em formato inválido
-    [Tags]    invalid 
-
-    ${account}    Create Dictionary
-    ...    name=Phillip Marques   
-    ...    email=philliptestes
-    ...    cpf=69652880434
- 
-    Submit signup form    ${account}
-
-    Notice should be    Oops! O email informado é inválido
-
-Preenchimento de CPF em formato inválido
-    [Tags]    invalid
-
-    ${account}    Create Dictionary
-    ...    name=Phillip Marques   
-    ...    email=phillipteste@teste.com
-    ...    cpf=69652880tgas
+    ...    name=${name}  
+    ...    email=${email}
+    ...    cpf=${cpf}
  
    Submit signup form    ${account}
 
     #Validação de dados
-    Notice should be    Oops! O CPF informado é inválido
+    Notice should be     ${output_message}

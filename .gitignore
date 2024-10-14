@@ -11,6 +11,7 @@ logs/
 *.jpg
 *.json
 *.log
+playwright-log.txt
 
 # Arquivos temporários e de cache do Python
 __pycache__/

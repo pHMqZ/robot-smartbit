@@ -1,40 +1,9 @@
 *** Settings ***
 Documentation    Cenários de testes de pré-cadastro de clientes
 
-Library    Browser
 
-Resource    ../resources/base.resource
+Resource    ../resources/Base.resource
 
-*** Keywords ***
-Submit signup form
-    [Arguments]    ${account}
-
-    Get Text
-    ...    //h2[contains(.,'Faça seu cadastro e venha para a Smartbit!')]
-    
-    #Preenchimento de dados
-    Fill Text
-    ...    //input[contains(@placeholder,'Nome completo')]
-    ...       ${account}[name]
-    Fill Text
-    ...    //input[contains(@placeholder,'Seu melhor email')] 
-    ...    ${account}[email]
-    Fill Text
-    ...    //input[contains(@placeholder,'CPF (somente dígitos)')]
-    ...    ${account}[cpf]
-    
-    Click        xpath=//button[@type='submit'][contains(.,'Cadastrar')]
-
-Star session
-    New Browser    browser=chromium        
-    New Page    http://localhost:3000/
-    
-Notice should be
-    [Arguments]     ${target}
-    
-    Wait For Elements State
-    ...    xpath=//div[@class='notice'][contains(.,'${target}')]
-    ...    visible    5
 
 *** Test Cases ***
 Deve iniciar o cadastro do cliente com sucesso
@@ -47,11 +16,8 @@ Deve iniciar o cadastro do cliente com sucesso
     #Preenchimento de dados
     Submit signup form    ${account}
     
-
     #Validação de dados
-    Wait For Elements State
-    ...    //h2[contains(.,'Falta pouco para fazer parte da família Smartbit!')]
-    ...    visible    5
+    Verify welcome message
 
 
 Validação de campos obrigatórios - Nome
@@ -85,9 +51,7 @@ Validação de campos obrigatórios - Email
     Submit signup form    ${account}
     
 
-    Wait For Elements State
-    ...    xpath=//div[@class='notice'][contains(.,'Por favor, informe o seu melhor e-mail')]
-    ...    visible    5
+    Notice should be    Por favor, informe o seu melhor e-mail
 
 
 Validação de campos obrigatórios - CPF
@@ -129,7 +93,7 @@ Preenchimento de CPF em formato inválido
     ${account}    Create Dictionary
     ...    name=Phillip Marques   
     ...    email=phillipteste@teste.com
-    ...    cpf=6965288043as
+    ...    cpf=69652880tgas
     
 
     Star session

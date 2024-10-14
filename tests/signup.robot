@@ -19,6 +19,8 @@ Deve iniciar o cadastro do cliente com sucesso
     #Validação de dados
     Verify welcome message
 
+    Take Screenshot
+
 
 Validação de campos obrigatórios - Nome
     [Tags]    required    #tag de campo obrigatório pode auxiliar para rodar
@@ -35,6 +37,9 @@ Validação de campos obrigatórios - Nome
     Submit signup form    ${account}
     
     Notice Should be     Por favor informe o seu nome completo
+
+    Take Screenshot
+
 
 
 Validação de campos obrigatórios - Email
@@ -53,6 +58,9 @@ Validação de campos obrigatórios - Email
 
     Notice should be    Por favor, informe o seu melhor e-mail
 
+    Take Screenshot
+
+
 
 Validação de campos obrigatórios - CPF
     [Tags]    required
@@ -69,6 +77,9 @@ Validação de campos obrigatórios - CPF
 
     
     Notice should be    Por favor, informe o seu CPF
+
+    Take Screenshot
+
    
 
 Preenchimento de email em formato inválido
@@ -85,6 +96,9 @@ Preenchimento de email em formato inválido
     Submit signup form    ${account}
 
     Notice should be    Oops! O email informado é inválido
+
+    Take Screenshot
+
    
 
 Preenchimento de CPF em formato inválido
@@ -103,3 +117,5 @@ Preenchimento de CPF em formato inválido
 
     #Validação de dados
     Notice should be    Oops! O CPF informado é inválido
+
+    Take Screenshot

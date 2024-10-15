@@ -4,20 +4,25 @@ Documentation    Cenários de testes de pré-cadastro de clientes
 
 Resource    ../resources/Base.resource
 
-Test Setup        Start session
+Test Setup           Start session
+Suite Setup          Set connection
 Test Teardown        Take Screenshot
 
+
 *** Test Cases ***
-Deve iniciar o cadastro do cliente com sucesso
+Deve iniciar o cadastro do cliente
+    [Tags]    smoke
 
-    ${account}    Get Fake Account
+    ${account}    Create Dictionary    
+    ...           name=Phillip Marques
+    ...           email=phillipteste@teste.com
+    ...           cpf=10835805077
     
-
-    #Preenchimento de dados
-    Submit signup form    ${account}
+    Select users
     
-    #Validação de dados
-    Verify welcome message
+    #Submit signup form    ${account}
+    
+    #Verify welcome message
 
 
 Tentativa de pré-cadastro
@@ -37,6 +42,7 @@ Tentativa de pré-cadastro
     Phillip Marques    phillipteste@teste.com    12             Oops! O CPF informado é inválido
 
 *** Keywords ***
+
 Attempted signup
     [Arguments]     ${name}    ${email}    ${cpf}    ${output_message}
 
@@ -45,7 +51,14 @@ Attempted signup
     ...    email=${email}
     ...    cpf=${cpf}
  
-   Submit signup form    ${account}
+    Submit signup form    ${account}
 
     #Validação de dados
     Notice should be     ${output_message}
+
+Select users
+    
+    ${query}    Set Variable    SELECT * FROM account
+    ${result}    Execute Sql Script    ${query}
+
+    Log    ${result}  

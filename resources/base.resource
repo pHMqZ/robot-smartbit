@@ -2,8 +2,10 @@
 Documentation    Arquivo principal do projeto Robot
 
 Library        Browser
+Library        DatabaseLibrary
 Library        libs/Account.py
 
+Resource        database_connection.resource
 Resource        pages/Landing.resource
 Resource        pages/Welcome.resource
 Resource        pages/Login.resource
@@ -17,3 +19,4 @@ Resource        pages/components/BoxNotice.resource
 Start session
     New Browser    browser=chromium        
     New Page    http://localhost:3000/
+

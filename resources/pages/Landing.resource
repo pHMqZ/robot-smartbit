@@ -23,9 +23,3 @@ Submit signup form
     
     Click        xpath=//button[@type='submit'][contains(.,'Cadastrar')]
     
-Notice should be
-    [Arguments]     ${target}
-    
-    Wait For Elements State
-    ...    xpath=//div[@class='notice'][contains(.,'${target}')]
-    ...    visible    5

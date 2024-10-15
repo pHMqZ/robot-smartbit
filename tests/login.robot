@@ -33,4 +33,21 @@ Tentativa de login com email incorreto
     
     Toast Should be    As credenciais de acesso fornecidas são inválidas. Tente novamente!
 
+Tentativa de login com dados incorretos
+    [Template]   Login attempt with incorrect fields
+    ${EMPTY}            ${EMPTY}     Os campos email e senha são obrigatórios.
+    ${EMPTY}            pwd123       Os campos email e senha são obrigatórios.
+    sac@smartbit.com    ${EMPTY}     Os campos email e senha são obrigatórios.
+    testeteste          pwd123       Oops! O email informado é inválido
+    www.teste.com       pwd123       Oops! O email informado é inválido
+    QWIE123             pwd123       Oops! O email informado é inválido
+    $##$$$q             pwd123       Oops! O email informado é inválido
 
+
+*** Keywords ***
+Login attempt with incorrect fields
+    [Arguments]        ${email}        ${password}        ${output_message}
+
+    Go to login page
+    Submit login form    ${email}    ${password}
+    Notice should be     ${output_message}

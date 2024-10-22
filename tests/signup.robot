@@ -4,21 +4,22 @@ Documentation    Cenários de testes de pré-cadastro de clientes
 
 Resource    ../resources/Base.resource
 
-Test Setup           Start session
-Suite Setup          Set connection
-Test Teardown        Take Screenshot
+#Test Setup           Start session
+Test Setup          Set connection
+Test Teardown       Close connection    ${DB_CONN}
+#Test Teardown        Take Screenshot
 
 
 *** Test Cases ***
 Deve iniciar o cadastro do cliente
     [Tags]    smoke
 
-    ${account}    Create Dictionary    
-    ...           name=Phillip Marques
-    ...           email=phillipteste@teste.com
-    ...           cpf=10835805077
+    # ${account}    Create Dictionary    
+    # ...           name=Phillip Marques
+    # ...           email=phillipteste@teste.com
+    # ...           cpf=10835805077
     
-    Select users
+    Select users    ${DB_CONN}
     
     #Submit signup form    ${account}
     
@@ -57,8 +58,9 @@ Attempted signup
     Notice should be     ${output_message}
 
 Select users
-    
-    ${query}    Set Variable    SELECT * FROM account
-    ${result}    Execute Sql Script    ${query}
-
-    Log    ${result}  
+    [Arguments]    ${conn}
+    Log    Verificando conexão: ${conn}
+    ${query}    Set Variable    SELECT * FROM accounts
+    Log    Executando consulta SQL: ${query}
+    ${result}    Database_conn.Query    ${conn}   ${query}
+    Log    Resultado: ${result}

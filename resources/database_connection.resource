@@ -5,13 +5,18 @@ Documentation        Tentativa de conexão ao banco
 Library        libs/Database_conn.py
 
 *** Variables ***
-${DB_CONN}    None
+${DB_CONN}    ${None}
 
 *** Keywords ***
 Set connection
-    ${DB_CONN}=    Set connection
-    RETURN         ${DB_CONN}
+    Log    Tentando conectar ao banco
+    ${conn}=    Set connection DB
+    Check Connection    ${conn}
+    Set Test Variable    ${DB_CONN}    ${conn}
+    Log    Conexão ok Resource 
 
 Close connection
     [Arguments]    ${conn}
-    Evaluate    Close connection(${conn})
+    Log    	Fechando conexão
+    Close connection DB    ${conn}
+    Log    Conexão encerrada

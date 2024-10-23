@@ -35,13 +35,38 @@ def close_connection_db(conn):
     else:
         print("Nenhuma conexão para fechar ou conexão já fechada")
 
-def query(conn, sql_query):
+def execute_db_operation(conn, sql_query, operation_type='query'):
+    """
+    Executa operações no banco de dados
+
+    Args:
+        conn: Conexão com banco
+        sql_query: Query a ser executada
+        operation_type: Tipo de operação - query para Select / execute para insert/update/delete
+
+    Returns:
+        - Para query - Retorna os resultados
+        - Para execute - Retorna o número de linhas afetadas
+    """
+
     try:
         cur = conn.cursor()
         cur.execute(sql_query)
-        results = cur.fetchall()
+
+        if operation_type.lower() == 'query':
+            result = cur.fetchall()
+        else:
+            result = cur.rowcount
+            conn.commit()
+
         cur.close()
-        return results
+        return result
+    
     except Exception as e:
-        print(f"Erro ao executar query: {e}")
+        print(f"Erro ao executar operação: {e}")
+        if operation_type.lower() != 'query':
+            conn.rollback()
         return None
+    finally:
+        if cur and not cur.closed:
+            cur.close()

@@ -9,42 +9,25 @@ Test Teardown    Take Screenshot
 *** Test Cases ***
 Realização de nova matricula
     
-    ${account}    Create Dictionary
-    ...           name=Alceu Silva
-    ...           email=alceu.silva@teste.com.br
-    ...           cpf=87181025066
+    ${data}    Get Json fixture    memberships    create
     
-    ${plan}       Set Variable     Plano Black
-    
-    ${credit_card}    Create Dictionary
-    ...               number=5105105105105100
-    ...               name=${account}[name]
-    ...               month=09
-    ...               year=2032
-    ...               cvv=123
-    Delete User By Email    ${account}[email]
-    
-    Insert Account    ${account}
+        
+    Delete User By Email    ${data}[account][email]
+    Insert Account    ${data}[account]
 
     Go to login page
     Submit login form       sac@smartbit.com    pwd123
     Successful login        sac@smartbit.com
     
     Go to Memberships           /memberships     Matrículas
-    
     Go to Memberships           /memberships/new    Nova matrícula    
     
-    Select Account          ${account}[name]    ${account}[cpf]    
-
-    Select plan             ${plan}
-
-    Fill payment details    ${credit_card}
+    Select Account          ${data}[account][name]    ${data}[account][cpf]    
+    Select plan             ${data}[plan]
+    Fill payment details    ${data}[credit_card]
        
 
     Click     //button[@type='submit'] 
-
-
-
     Toast Should be    Matrícula cadastrada com sucesso.
 
 

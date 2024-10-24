@@ -1,6 +1,8 @@
 *** Settings ***
 Documentation    Arquivo principal do projeto Robot
 
+Library        JSONLibrary
+
 Library        Browser
 Library        DatabaseLibrary
 Library        libs/Account.py
@@ -19,4 +21,14 @@ Resource        pages/components/BoxNotice.resource
 Start session
     New Browser    browser=chromium        
     New Page    http://localhost:3000/
+
+#Helpers
+Get Json fixture
+    [Arguments]       ${file_name}    ${scenario}
+
+    ${data}    Load Json From File    
+    ...    ${EXECDIR}/resources/fixtures/${file_name}.json
+    ...    encoding=utf-8
+    
+    RETURN    ${data}[${scenario}]
 

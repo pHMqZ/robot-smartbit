@@ -6,7 +6,7 @@ Resource    ../resources/Base.resource
 
 Test Setup       Run Keywords    
 ...             Start session    AND
-...             Set connection
+...             Set Connection
 Test Teardown    Run Keywords
 ...              Close connection    ${DB_CONN}     AND
 ...              Take Screenshot
@@ -21,7 +21,7 @@ Deve iniciar o cadastro do cliente
     ...           email=phillipteste@teste.com
     ...           cpf=10835805077
     
-    Delete user by email    ${DB_CONN}    ${account}[email]
+    Delete user by email   ${account}[email]
     
     Submit signup form    ${account}
     
@@ -59,39 +59,3 @@ Attempted signup
     #Validação de dados
     Notice should be     ${output_message}
 
-Select users
-    [Arguments]    ${conn}
-    Log    Verificando conexão: ${conn}
-    ${query}    Set Variable    SELECT * FROM accounts
-    Log    Executando consulta SQL: ${query}
-    ${result}    Execute Db Operation   ${conn}   ${query}    query
-    Log    Resultado: ${result}
-
-Delete user by email
-    [Arguments]    ${conn}    ${email}
-
-    ${select_query}    Set Variable    select * from accounts where email = '${email}'
-    ${user_exists}    Execute Db Operation    ${conn}    ${select_query}    query
-
-    IF    ${user_exists}
-        ${delete_query}    Set Variable    DELETE FROM accounts WHERE email = '${email}'
-        ${rows_affected}   Execute DB Operation    ${conn}    ${delete_query}    execute
-        
-        # Verifica se o delete funcionou
-        ${check_query}    Set Variable    SELECT * FROM accounts WHERE email = '${email}'
-        ${result}         Execute DB Operation    ${conn}    ${check_query}    query
-        
-        # Valida o resultado
-        IF    ${result} == ${None} or ${result} == @{EMPTY}
-            Log    Usuário com email ${email} foi deletado com sucesso
-            Return From Keyword    ${True}
-        ELSE
-            Log    Falha ao deletar usuário com email ${email}
-            Return From Keyword    ${False}
-        END
-
-    ELSE
-        Log    Usuário com email ${email} não encontrado
-        Return From Keyword    ${False}
-    
-    END

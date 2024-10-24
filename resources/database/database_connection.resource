@@ -1,8 +1,8 @@
 *** Settings ***
-Documentation        Tentativa de conexão ao banco
+Documentation        Arquivo para conexão ao banco de dados
 
 
-Library        libs/Database_conn.py
+Library        ../libs/Database_conn.py
 
 *** Variables ***
 ${DB_CONN}    ${None}
@@ -10,7 +10,7 @@ ${DB_CONN}    ${None}
 *** Keywords ***
 Set connection
     Log    Tentando conectar ao banco
-    ${conn}=    Set connection DB
+    ${conn}    Set connection DB
     Check Connection    ${conn}
     Set Test Variable    ${DB_CONN}    ${conn}
     Log    Conexão ok Resource 

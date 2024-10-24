@@ -1,18 +1,18 @@
 import psycopg2
 
+
 def set_connection_db():
     try:
         conn = psycopg2.connect(
             host='localhost',
             port='5432',
-            database='smartbit',
+            dbname='smartbit',  # Mudou de 'database' para 'dbname'
             user='postgres',
             password='QAx@123',
             client_encoding='utf8'
         )
         print("Conexão OK PY")
-        return conn
-         
+        return conn  
     except UnicodeDecodeError as e:
         print(f"Erro de decodificação: {e}")
         return None
@@ -35,38 +35,24 @@ def close_connection_db(conn):
     else:
         print("Nenhuma conexão para fechar ou conexão já fechada")
 
-def execute_db_operation(conn, sql_query, operation_type='query'):
+def execute(sql_query):
+    conn = set_connection_db()
+
+    cur = conn.cursor()
+    cur.execute(sql_query)
+    conn.commit()
+    conn.close()
+
+def insert_account(account):
+    query=f"""
+    INSERT INTO accounts(email, name, cpf)
+	VALUES ('{account["email"]}','{account["name"]}','{account["cpf"]}');
     """
-    Executa operações no banco de dados
+    execute(query)
 
-    Args:
-        conn: Conexão com banco
-        sql_query: Query a ser executada
-        operation_type: Tipo de operação - query para Select / execute para insert/update/delete
+def delete_user_by_email(email):
+    query = f"DELETE FROM accounts WHERE email = '{email}';"
 
-    Returns:
-        - Para query - Retorna os resultados
-        - Para execute - Retorna o número de linhas afetadas
-    """
+    execute(query)
 
-    try:
-        cur = conn.cursor()
-        cur.execute(sql_query)
 
-        if operation_type.lower() == 'query':
-            result = cur.fetchall()
-        else:
-            result = cur.rowcount
-            conn.commit()
-
-        cur.close()
-        return result
-    
-    except Exception as e:
-        print(f"Erro ao executar operação: {e}")
-        if operation_type.lower() != 'query':
-            conn.rollback()
-        return None
-    finally:
-        if cur and not cur.closed:
-            cur.close()

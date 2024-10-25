@@ -12,7 +12,7 @@ Create new memberships
     Go to memberships form           /memberships/new    Nova matrícula    
     
     Select Account          ${data}[account][name]    ${data}[account][cpf]    
-    Select plan             ${data}[plan]
+    Select plan             ${data}[plan][name]
     Fill payment details    ${data}[credit_card]
 
     Click     //button[@type='submit'] 

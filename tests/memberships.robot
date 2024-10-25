@@ -28,15 +28,10 @@ Validação de matricula duplicada
 
     ${data}    Get Json fixture    memberships    duplicate
     
-    Delete User By Email    ${data}[account][email]
-    Insert Account    ${data}[account]
+    Insert Membership       ${data} 
 
     SignIn Admin account     
-    
     Go to page           /memberships     Matrículas
     
     Create new memberships    ${data}
-    Sleep    10
-    Create new memberships    ${data}
-
     Toast Should be    O usuário já possui matrícula.

@@ -46,3 +46,15 @@ Fill payment details
     Fill Text    //input[@placeholder='MM']                                  ${credit_card}[month]
     Fill Text    //input[@placeholder='AAAA']                                ${credit_card}[year]
     Fill Text    //input[@placeholder='CVV']                                 ${credit_card}[cvv]
+
+Search by name
+    [Arguments]    ${name}
+
+    Fill Text    //input[@placeholder='Busque por nome']    ${name}
+    
+    Wait For Elements State    //strong[contains(.,'Total: 1')]
+    ...    visible    5
+
+    Wait For Elements State    //tr[contains(.,'${name}')]
+    ...    visible    5
+

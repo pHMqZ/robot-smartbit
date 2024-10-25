@@ -35,3 +35,14 @@ Validação de matricula duplicada
     
     Create new memberships    ${data}
     Toast Should be    O usuário já possui matrícula.
+
+Busca de matriculas cadastradas
+    [Tags]    search
+
+    ${name}    Set Variable    	Emily Stone
+    
+    SignIn Admin account     
+    Go to page           /memberships     Matrículas
+
+    Search by name    ${name}
+    

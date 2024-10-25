@@ -39,10 +39,12 @@ Validação de matricula duplicada
 Busca de matriculas cadastradas
     [Tags]    search
 
-    ${name}    Set Variable    	Emily Stone
+    ${data}    Get Json fixture    memberships    search
+
+    Insert Membership    ${data}
     
     SignIn Admin account     
     Go to page           /memberships     Matrículas
 
-    Search by name    ${name}
+    Search by name    ${data}[account][name]
     

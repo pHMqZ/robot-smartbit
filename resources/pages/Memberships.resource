@@ -58,3 +58,15 @@ Search by name
     Wait For Elements State    //tr[contains(.,'${name}')]
     ...    visible    5
 
+Delete member
+    [Arguments]    ${name}
+
+    Click           xpath=//td[text()='${name}']/..//button
+
+Membership should not be visible
+    [Arguments]    ${name}
+
+    Wait For Elements State    //tr[contains(.,'${name}')]
+    ...    detached    5
+
+    

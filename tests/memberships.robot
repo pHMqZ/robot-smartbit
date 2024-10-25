@@ -48,3 +48,18 @@ Busca de matriculas cadastradas
 
     Search by name    ${data}[account][name]
     
+Exclusão de matriculas
+    [Tags]    delete
+
+    ${data}    Get Json fixture    memberships    delete
+
+    Insert Membership    ${data}
+
+    SignIn Admin account     
+    Go to page           /memberships     Matrículas
+
+    Delete member    ${data}[account][name]
+
+    Confirm remove
+
+    Membership should not be visible    ${data}[account][name]

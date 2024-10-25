@@ -23,3 +23,20 @@ Realização de nova matricula
 
     Toast Should be    Matrícula cadastrada com sucesso.
 
+Validação de matricula duplicada
+    [Tags]  duplicate
+
+    ${data}    Get Json fixture    memberships    duplicate
+    
+    Delete User By Email    ${data}[account][email]
+    Insert Account    ${data}[account]
+
+    SignIn Admin account     
+    
+    Go to page           /memberships     Matrículas
+    
+    Create new memberships    ${data}
+    Sleep    10
+    Create new memberships    ${data}
+
+    Toast Should be    O usuário já possui matrícula.

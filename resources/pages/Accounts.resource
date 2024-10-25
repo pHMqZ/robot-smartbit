@@ -5,9 +5,3 @@ Library    Browser
 
 
 *** Keywords ***
-Successful login
-    
-    [Arguments]    ${email}
-    
-    Wait For Elements State    //span[@class='logged-user'][contains(.,'${email}')]
-    ...    visible    5 

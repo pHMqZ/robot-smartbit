@@ -7,6 +7,7 @@ Library              JSONLibrary
 Library            ../../libs/Database_conn.py
 Library    OperatingSystem
 
+Resource             ../../services/Service.resource
 Resource             Variables/variables.resource
 Resource             Actions/account.resource
 Resource             Actions/body.resource

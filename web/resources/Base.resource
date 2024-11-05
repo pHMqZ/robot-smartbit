@@ -5,7 +5,7 @@ Library        JSONLibrary
 
 Library        Browser
 Library        DatabaseLibrary
-Library        libs/Account.py
+Library        ../../libs/Account.py
 
 Resource        database/database_connection.resource
 Resource        pages/Landing.resource

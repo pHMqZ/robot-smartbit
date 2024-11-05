@@ -2,6 +2,10 @@
 Documentation        Arquivo principal do projeto de testes automatizados para mobile
 
 Library              AppiumLibrary
+Library              JSONLibrary
+
+Library            ../../libs/Database_conn.py
+Library    OperatingSystem
 
 Resource             Variables/variables.resource
 Resource             Actions/account.resource
@@ -30,3 +34,13 @@ Finish session
 
     Capture Page Screenshot
     Close Application
+
+Get Json fixture
+    
+    [Arguments]    ${scenario}  
+
+    ${data}    Load Json From File    
+    ...    ${EXECDIR}/resources/fixtures/data.json
+    ...    encoding=utf-8
+    
+    RETURN    ${data}[${scenario}]

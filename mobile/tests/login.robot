@@ -6,10 +6,14 @@ Resource            ../resources/Base.resource
 Test Setup          Star session
 Test Teardown       Finish session
 
+
 *** Test Cases ***
 Login válido
+    ${data}    Get Json fixture    login
 
-    Signin with document        87181025066
+    Insert Membership    ${data}
+
+    Signin with document        ${data}[account][cpf]
 
     User is logged in
 

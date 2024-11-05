@@ -2,7 +2,7 @@
 Documentation        Arquivo para conexão ao banco de dados
 
 
-Library        ../libs/Database_conn.py
+Library        ../../../libs/Database_conn.py
 
 *** Variables ***
 ${DB_CONN}    ${None}

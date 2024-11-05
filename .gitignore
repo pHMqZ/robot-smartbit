@@ -4,6 +4,7 @@ report/
 log/
 logs/
 node_modules/
+Environment_activation/
 
 # Arquivos de saída e relatórios comuns
 *.xml

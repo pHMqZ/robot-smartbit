@@ -7,13 +7,20 @@ Test Setup          Star session
 Test Teardown       Finish session
 
 *** Test Cases ***
-Login com IP e CPF
+Login válido
 
-    Input Text       xpath=//android.widget.EditText[@resource-id="ipAddress"]    ${ipAPI}
-    Input Text       xpath=//android.widget.EditText[@resource-id="cpf"]          	87181025066
+    Signin with document        87181025066
 
-    Click Element    xpath=//android.view.ViewGroup[@resource-id="btnLogin"]
+    User is logged in
 
-    Wait Until Element Is Visible    xpath=//android.widget.TextView[@resource-id="myAccountTitle"]    15
+Login com CPF não cadastrado
+    [Tags]    temp
+    
+    Login attempt with incorrect CPF    27024373032    Acesso não autorizado! Entre em contato com a central de atendimento
+    
+Login com CPF em branco
+    Login attempt with incorrect CPF    ${EMPTY}    Informe o número do seu CPF
+    
+Login com CPF inexistente
+    Login attempt with incorrect CPF    27024373031   CPF inválido, tente novamente
 
-    Element Text Should Be    xpath=//android.widget.TextView[@resource-id="myAccountTitle"]    Sua transformação começa aqui!

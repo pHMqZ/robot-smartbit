@@ -4,6 +4,13 @@ Documentation        Arquivo principal do projeto de testes automatizados para m
 Library              AppiumLibrary
 
 Resource             Variables/variables.resource
+Resource             Actions/account.resource
+Resource             Actions/body.resource
+Resource             Actions/login.resource
+Resource             Actions/Components/menu.resource
+Resource             Actions/Components/popup.resource
+
+
 
 *** Keywords ***
 Star session

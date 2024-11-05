@@ -1,14 +1,19 @@
 import psycopg2
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def set_connection_db():
     try:
         conn = psycopg2.connect(
-            host='localhost',
-            port='5432',
-            dbname='smartbit',  # Mudou de 'database' para 'dbname'
-            user='postgres',
-            password='QAx@123',
+            host=os.getenv('DB_HOST'),
+            port=os.getenv('DB_PORT'),
+            dbname=os.getenv('DB_NAME'),  
+            user=os.getenv('DB_USER'),
+            password=os.getenv('DB_PASS'),
             client_encoding='utf8'
         )
         print("Conexão OK PY")

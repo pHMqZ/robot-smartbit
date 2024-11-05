@@ -3,6 +3,7 @@ Documentation        Camada de integração com a API
 
 Library              RequestsLibrary
 
+Variables            Env.py
 
 *** Keywords ***
 Set user token
@@ -12,7 +13,7 @@ Set user token
     ...           password=pwd123 
 
     ${resp}    POST
-    ...    url=http://localhost:3333/sessions
+    ...    url=${API_URL}/sessions
     ...    json=${payload}
     
     ${token}    Set Variable   Bearer ${resp.json()}[token]
@@ -28,7 +29,7 @@ Get account by name
     ${params}      Create Dictionary
     ...            name=${name}
 
-    ${resp}    GET    url=http://localhost:3333/accounts
+    ${resp}    GET    url=${API_URL}/accounts
     ...    params=${params}
     ...    headers=${headers}
     
